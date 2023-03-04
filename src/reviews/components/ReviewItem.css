@@ -1,0 +1,60 @@
+.review-item {
+  margin: 1rem 0;
+}
+
+.review-item__content {
+  padding: 0;
+}
+
+.review-item__info {
+  padding: 1rem;
+  text-align: center;
+}
+
+.review-item__image {
+  width: 100%;
+  height: 12.5rem;
+  margin-right: 1.5rem;
+}
+
+.review-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.review-item__info h2,
+.review-item__info h3,
+.review-item__info p {
+  margin: 0 0 0.5rem 0;
+}
+
+.review-item__actions {
+  padding: 1rem;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+
+.review-item__modal-content {
+  padding: 0;
+}
+
+.review-item__modal-actions {
+  text-align: right;
+}
+
+.review-item__actions button,
+.review-item__actions a {
+  margin: 0.5rem;
+}
+
+.map-container {
+  height: 15rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .review-item__image {
+    height: 20rem;
+  } 
+}
