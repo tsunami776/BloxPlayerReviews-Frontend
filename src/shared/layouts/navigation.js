@@ -7,7 +7,11 @@ const pages = {
   ],
   share: [
     {
-      title: "View All",
+      title: "Top Reviews",
+      href: "/top-reviews",
+    },
+    {
+      title: "Top Reviewers",
       href: "/reviews",
     },
     {

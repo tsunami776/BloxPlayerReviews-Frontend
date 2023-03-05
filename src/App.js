@@ -18,6 +18,7 @@ import Main from "./shared/layouts/Main";
 import Container from "./shared/components/Container";
 import Welcome from "./shared/components/Welcome";
 import Page from "./shared/components/Page";
+import TopReviews from "./reviews/pages/TopReviews";
 
 const App = () => {
   const { token, login, logout, userId } = useAuth();
@@ -34,6 +35,9 @@ const App = () => {
           <Container>
             <Welcome />
           </Container>
+        </Route>
+        <Route path="/top-reviews" exact>
+          <TopReviews></TopReviews>
         </Route>
         <Route path="/reviews" exact>
           <Users></Users>
@@ -57,6 +61,9 @@ const App = () => {
           <Container>
             <Welcome />
           </Container>
+        </Route>
+        <Route path="/top-reviews" exact>
+          <TopReviews></TopReviews>
         </Route>
         <Route path="/reviews" exact>
           <Users></Users>

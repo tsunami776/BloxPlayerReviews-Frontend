@@ -19,14 +19,14 @@ const ReviewList = (props) => {
 
   return (
     <ul className="review-list">
-      {props.items.map((place) => (
+      {props.items.map((review) => (
         <ReviewItem
-          key={place._id}
-          id={place._id}
-          image={place.image}
-          title={place.title}
-          description={place.description}
-          // creatorId={place.creator}
+          key={review._id}
+          id={review._id}
+          image={review.image}
+          title={review.title}
+          description={review.description}
+          //creatorId={review.creator._id}
           onDelete={props.onDeletePlace}
         />
       ))}

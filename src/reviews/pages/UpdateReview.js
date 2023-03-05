@@ -17,7 +17,7 @@ import "./ReviewForm.css";
 
 import { useMutation, ClientContext, useQuery } from "graphql-hooks";
 
-const UPDATE_PLACE_MUTATION = `mutation($title:String!, $description:String!, $reviewId:String!, ){
+const UPDATE_REVIEW_MUTATION = `mutation($title:String!, $description:String!, $reviewId:String!, ){
   updateReview(updateReviewInput:{title:$title, description:$description, reviewId:$reviewId}){
     title
     description
@@ -26,27 +26,29 @@ const UPDATE_PLACE_MUTATION = `mutation($title:String!, $description:String!, $r
 
 const UpdateReview = () => {
   const client = useContext(ClientContext);
-  const [updatePlace] = useMutation(UPDATE_PLACE_MUTATION);
+  const [updateReview] = useMutation(UPDATE_REVIEW_MUTATION);
   const auth = useContext(AuthContext);
   const { error, clearError } = useHttpClient();
-  // const [loadedPlace, setLoadedPlace] = useState();
-  const placeId = useParams().placeId;
+  const reviewId = useParams().reviewId;
   const history = useHistory();
 
-  const FIND_A_PLACE_QUERY = `mutation($reviewId:String!){
+  const FIND_A_REVIEW_QUERY = `mutation($reviewId:String!){
   getReviewById(getReviewByIdInput:{reviewId:$reviewId}){
     title
     description
+    creator{
+      _id
+    }
   }
 }`;
 
-  const { loading, data } = useQuery(FIND_A_PLACE_QUERY, {
+  const { loading, data } = useQuery(FIND_A_REVIEW_QUERY, {
     variables: {
-      placeId: placeId,
+      reviewId: reviewId,
     },
   });
 
-  // console.log(data);
+  console.log(data);
 
   const [formState, inputHandler] = useForm(
     {
@@ -103,11 +105,11 @@ const UpdateReview = () => {
       //   }
       // );
       client.setHeader("Authorization", `Bearer ${auth.token}`);
-      await updatePlace({
+      await updateReview({
         variables: {
           title: formState.inputs.title.value,
           description: formState.inputs.description.value,
-          placeId: placeId,
+          reviewId: reviewId,
         },
       });
       history.push("/" + auth.userId + "/reviews");
@@ -145,7 +147,7 @@ const UpdateReview = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid title."
             onInput={inputHandler}
-            initialValue={data.getPlaceById.title}
+            initialValue={data.getReviewById.title}
             initialValid={true}
           />
           <Input
@@ -155,11 +157,11 @@ const UpdateReview = () => {
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText="Please enter a valid description (min. 5 characters)."
             onInput={inputHandler}
-            initialValue={data.getPlaceById.description}
+            initialValue={data.getReviewById.description}
             initialValid={true}
           />
           <Button type="submit" disabled={!formState.isValid}>
-            UPDATE PLACE
+            UPDATE REVIEW
           </Button>
         </form>
       )}

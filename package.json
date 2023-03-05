@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.10.0",
     "@mui/material": "^5.10.1",
     "aos": "^2.3.4",
+    "axios": "^1.3.4",
     "dotenv": "^16.0.2",
     "graphql-hooks": "^5.11.4",
     "react": "^17.0.2",

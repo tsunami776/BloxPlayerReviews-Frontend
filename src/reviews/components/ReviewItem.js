@@ -11,23 +11,23 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import "./ReviewItem.css";
 import { ClientContext, useMutation } from "graphql-hooks";
 
-const DELETE_PLACE_MUTATION = `mutation($placeId:String!){
-  deletePlace(deletePlaceInput:{placeId:$placeId}){
+const DELETE_PLACE_MUTATION = `mutation($reviewId:String!){
+  deleteReview(deleteReviewInput:{reviewId:reviewId}){
     title
   }
 }`;
 
 const ReviewItem = (props) => {
   const client = useContext(ClientContext);
-  const [deletePlace] = useMutation(DELETE_PLACE_MUTATION);
+  const [deleteReview] = useMutation(DELETE_PLACE_MUTATION);
   const { isLoading, error, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
-  const [showMap, setShowMap] = useState(false);
+  // const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  const openMapHandler = () => setShowMap(true);
-
-  const closeMapHandler = () => setShowMap(false);
+  // const openMapHandler = () => setShowMap(true);
+  //
+  // const closeMapHandler = () => setShowMap(false);
 
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
@@ -42,30 +42,32 @@ const ReviewItem = (props) => {
     try {
       // console.log(props.id);
       client.setHeader("Authorization", `Bearer ${auth.token}`);
-      await deletePlace({
+      await deleteReview({
         variables: {
-          placeId: props.id,
+          reviewId: props.id,
         },
       });
       props.onDelete(props.id);
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
-      <Modal
-        show={showMap}
-        onCancel={closeMapHandler}
-        header={props.address}
-        contentClass="place-item__modal-content"
-        footerClass="place-item__modal-actions"
-        footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
-      >
-        <div className="map-container">
-          <Map center={props.coordinates} zoom={16} />
-        </div>
-      </Modal>
+      {/*<Modal*/}
+      {/*  show={showMap}*/}
+      {/*  onCancel={closeMapHandler}*/}
+      {/*  header={props.address}*/}
+      {/*  contentClass="place-item__modal-content"*/}
+      {/*  footerClass="place-item__modal-actions"*/}
+      {/*  footer={<Button onClick={closeMapHandler}>CLOSE</Button>}*/}
+      {/*>*/}
+      {/*  /!*<div className="map-container">*!/*/}
+      {/*  /!*  <Map center={props.coordinates} zoom={16} />*!/*/}
+      {/*  /!*</div>*!/*/}
+      {/*</Modal>*/}
       <Modal
         show={showConfirmModal}
         onCancel={cancelDeleteHandler}
@@ -90,6 +92,9 @@ const ReviewItem = (props) => {
       <li className="review-item">
         <Card className="review-item__content">
           {isLoading && <LoadingSpinner asOverlay />}
+          <div className="review-item__info">
+            <h1>{props.title}</h1>
+          </div>
           <div className="review-item__image">
             <img
               src={props.image}
@@ -97,26 +102,25 @@ const ReviewItem = (props) => {
             />
           </div>
           <div className="review-item__info">
-            <h2>{props.title}</h2>
-            <h3>{props.address}</h3>
+            {/*<h3>{props.address}</h3>*/}
             <p>{props.description}</p>
           </div>
           <div className="review-item__actions">
-            <Button inverse onClick={openMapHandler}>
-              VIEW ON MAP
-            </Button>
+            {/*<Button inverse onClick={openMapHandler}>*/}
+            {/*  VIEW ON MAP*/}
+            {/*</Button>*/}
             {/*{auth.userId === props.creatorId && (*/}
             {/*  <Button to={`/reviews/${props.id}`}>EDIT</Button>*/}
             {/*)}*/}
-            <Button to={`/reviews/${props.id}`}>EDIT</Button>
+            {/*<Button to={`/reviews/${props.id}`}>EDIT</Button>*/}
             {/*{auth.userId === props.creatorId && (*/}
             {/*  <Button danger onClick={showDeleteWarningHandler}>*/}
             {/*    DELETE*/}
             {/*  </Button>*/}
             {/*)}*/}
-            <Button danger onClick={showDeleteWarningHandler}>
-              DELETE
-            </Button>
+            {/*<Button danger onClick={showDeleteWarningHandler}>*/}
+            {/*  DELETE*/}
+            {/*</Button>*/}
           </div>
         </Card>
       </li>
