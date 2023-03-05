@@ -14,14 +14,9 @@ const Users = () => {
     _id
     name
     image
-    createdPlaces{
+    createdReviews{
       title
-      address
       image
-      location{
-        lat
-        lng
-      }
       description
     }
   }

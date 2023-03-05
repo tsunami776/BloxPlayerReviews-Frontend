@@ -108,7 +108,7 @@ const ReviewItem = (props) => {
             {/*{auth.userId === props.creatorId && (*/}
             {/*  <Button to={`/reviews/${props.id}`}>EDIT</Button>*/}
             {/*)}*/}
-            <Button to={`/places/${props.id}`}>EDIT</Button>
+            <Button to={`/reviews/${props.id}`}>EDIT</Button>
             {/*{auth.userId === props.creatorId && (*/}
             {/*  <Button danger onClick={showDeleteWarningHandler}>*/}
             {/*    DELETE*/}

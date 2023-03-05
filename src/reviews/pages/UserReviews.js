@@ -14,16 +14,11 @@ const UserReviews = () => {
   const history = useHistory();
 
   const USER_PLACES_QUERY = `mutation($userId:String!){
-  getPlacesByUserId(getPlacesByUserIdInput:{userId:$userId}){
+  getReviewsByUserId(getReviewsByUserIdInput:{userId:$userId}){
     _id
     title
     description
     image
-    address
-    location{
-      lat
-      lng
-    }
   }
 }`;
 
@@ -67,7 +62,7 @@ const UserReviews = () => {
       )}
       {!loading && (
         <ReviewList
-          items={data.getPlacesByUserId}
+          items={data.getReviewsByUserId}
           onDeletePlace={placeDeletedHandler}
         />
       )}

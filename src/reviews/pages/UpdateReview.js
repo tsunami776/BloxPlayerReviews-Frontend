@@ -17,8 +17,8 @@ import "./ReviewForm.css";
 
 import { useMutation, ClientContext, useQuery } from "graphql-hooks";
 
-const UPDATE_PLACE_MUTATION = `mutation($title:String!, $description:String!, $placeId:String!, ){
-  updatePlace(updatePlaceInput:{title:$title, description:$description, placeId:$placeId}){
+const UPDATE_PLACE_MUTATION = `mutation($title:String!, $description:String!, $reviewId:String!, ){
+  updateReview(updateReviewInput:{title:$title, description:$description, reviewId:$reviewId}){
     title
     description
   }
@@ -33,8 +33,8 @@ const UpdateReview = () => {
   const placeId = useParams().placeId;
   const history = useHistory();
 
-  const FIND_A_PLACE_QUERY = `mutation($placeId:String!){
-  getPlaceById(getPlaceByIdInput:{placeId:$placeId}){
+  const FIND_A_PLACE_QUERY = `mutation($reviewId:String!){
+  getReviewById(getReviewByIdInput:{reviewId:$reviewId}){
     title
     description
   }

@@ -15,11 +15,10 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./ReviewForm.css";
 import { ClientContext, useMutation } from "graphql-hooks";
-const NEW_PLACE_MUTATION = `mutation($title:String!, $description:String!, $image:String!, $address:String!){
-  createPlace(createPlaceInput:{title:$title, description:$description, image:$image, address:$address}){
+const NEW_REVIEW_MUTATION = `mutation($title:String!, $description:String!, $image:String!){
+  createReview(createReviewInput:{title:$title, description:$description, image:$image}){
     title
     description
-    address
   }
 }`;
 
@@ -28,7 +27,7 @@ const NewReview = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  const [createPlace] = useMutation(NEW_PLACE_MUTATION);
+  const [createReview] = useMutation(NEW_REVIEW_MUTATION);
   const [formState, inputHandler] = useForm(
     {
       title: {
@@ -36,10 +35,6 @@ const NewReview = () => {
         isValid: false,
       },
       description: {
-        value: "",
-        isValid: false,
-      },
-      address: {
         value: "",
         isValid: false,
       },
@@ -53,7 +48,7 @@ const NewReview = () => {
 
   const history = useHistory();
 
-  const placeSubmitHandler = async (event) => {
+  const reviewSubmitHandler = async (event) => {
     event.preventDefault();
     try {
       client.setHeader("Authorization", `Bearer ${auth.token}`);
@@ -72,22 +67,21 @@ const NewReview = () => {
         { Authorization: "Bearer " + auth.token }
       );
       const imageUrl = responseData.imageUrl || "undefined";
-      await createPlace({
+      await createReview({
         variables: {
           title: formState.inputs.title.value,
           description: formState.inputs.description.value,
-          address: formState.inputs.address.value,
           image: imageUrl,
         },
       });
-      history.push("/");
+      // history.push("/");
     } catch (err) {}
   };
 
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
-      <form className="place-form" onSubmit={placeSubmitHandler}>
+      <form className="place-form" onSubmit={reviewSubmitHandler}>
         {isLoading && <LoadingSpinner asOverlay />}
         <Input
           id="title"
@@ -104,14 +98,6 @@ const NewReview = () => {
           label="Description"
           validators={[VALIDATOR_MINLENGTH(5)]}
           errorText="Please enter a valid description (at least 5 characters)."
-          onInput={inputHandler}
-        />
-        <Input
-          id="address"
-          element="input"
-          label="Address"
-          validators={[VALIDATOR_REQUIRE()]}
-          errorText="Please enter a valid address."
           onInput={inputHandler}
         />
         <ImageUpload

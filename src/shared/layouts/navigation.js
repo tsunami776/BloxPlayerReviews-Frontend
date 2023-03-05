@@ -17,10 +17,6 @@ const pages = {
   ],
   account: [
     {
-      title: "Settings",
-      href: "/",
-    },
-    {
       title: "My Reviews",
       href: "DEFINED IN NAVITEMS",
     },
