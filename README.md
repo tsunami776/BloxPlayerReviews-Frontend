@@ -1,6 +1,6 @@
 # BloxPlayerReviews-Frontend
 
-## Devpost Link
+## Devpost Submission
 https://devpost.com/software/bloxplayerreviews
 
 ## Inspiration
