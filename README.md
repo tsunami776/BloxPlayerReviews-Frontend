@@ -1,5 +1,8 @@
 # BloxPlayerReviews-Frontend
 
+## Devpost Link
+https://devpost.com/software/bloxplayerreviews
+
 ## Inspiration
 I saw a lot of amazing games on Roblox and creative talent on the platform. But for reviews, I can only see a thumb up and thumb down and the number of people playing right now. I think rather than playing what other people are playing, it is more fun to find the games that suit you. 
 ## What it does
